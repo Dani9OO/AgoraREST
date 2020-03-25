@@ -51,6 +51,22 @@ exports.getCalificaciones = (req, res) => {
     });
 }
 
+exports.getAlumno = (req, res) => {
+    Alumno.getAlumno(req.params.alumnoId, (err, data) => {
+        if (err) {
+            if (err.kind === 'not_found') {
+                res.status(404).send({
+                    message: 'No se encontro un alumno con id ${req.params.alumnoId}.'
+                });
+            } else {
+                res.status(500).send({
+                    message: 'Hubo un error al obtener el Alumno con id ' + req.params.alumnoId
+                });
+            }
+        } else res.send(data);
+    });
+}
+
 exports.registrarCalificaciones = (req, res) => {
     Alumno.registrarCalificaciones(req.params.alumnoId, req.params.nombreMateria, req.params.calificacion, (err, data) => {
         if (err)

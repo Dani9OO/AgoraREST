@@ -48,7 +48,23 @@ Alumno.getCalificaciones = (alumnoId, result) => {
             return;
         }
         if(res.length) {
-            console.log('Alumno encontrado con ID: ', res[0]);
+            console.log('Mostrando información...', res);
+            result(null, res);
+            return;
+        }
+        if({ kind: 'not found' }, null);
+    });
+};
+
+Alumno.getAlumno = (alumnoId, result) => {
+    mariadb.query('SELECT Nombre, Promedio FROM Alumno WHERE ID = ?', alumnoId, (err,res) => {
+        if(err) {
+            console.log('error: ', err);
+            result(err, null);
+            return;
+        }
+        if(res.length) {
+            console.log('Mostrando alumno...', res[0]);
             result(null, res);
             return;
         }
@@ -69,14 +85,14 @@ Alumno.registrarCalificaciones = (alumnoId, nombreMateria, calificacion, result)
 };
 
 Alumno.getPromedio = result => {
-    mariadb.query('SELECT AVG(Promedio) AS Promedio FROM Alumno', (err,res) => {
+    mariadb.query('SELECT AVG(Promedio) AS Promedio FROM Alumno WHERE Promedio > 0', (err,res) => {
         if(err) {
             console.log('error: ', err);
             result(null,res);
             return;
         }
-        console.log('Promedio: ', res);
-        result(null, res);
+        console.log(res[0]);
+        result(null, res[0]);
     });
 };
 

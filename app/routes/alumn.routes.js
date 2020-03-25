@@ -9,6 +9,8 @@ module.exports = app => {
 
     app.get('/alumnos/:alumnoId', alumno.getCalificaciones);
 
+    app.get('/alumno/:alumnoId', alumno.getAlumno);
+
     app.post('/alumnos/:alumnoId/:nombreMateria/:calificacion', alumno.registrarCalificaciones);
 
     app.get('/promedio', alumno.getPromedio);
