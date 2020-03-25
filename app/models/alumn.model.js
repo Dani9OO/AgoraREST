@@ -41,7 +41,7 @@ Alumno.getMaterias = result => {
 };
 
 Alumno.getCalificaciones = (alumnoId, result) => {
-    mariadb.query('SELECT a.Nombre, a.Promedio, c.Materia, c.Calificación FROM Calificaciones c INNER JOIN Alumno a ON c.Alumno = a.ID WHERE a.ID = ?', alumnoId, (err,res) => {
+    mariadb.query('SELECT a.Nombre, a.Promedio, c.Materia, c.Calificacion FROM Calificaciones c INNER JOIN Alumno a ON c.Alumno = a.ID WHERE a.ID = ?', alumnoId, (err,res) => {
         if(err) {
             console.log('error: ', err);
             result(err, null);
